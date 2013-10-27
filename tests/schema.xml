@@ -1,0 +1,53 @@
+<database type="InnoDB" encoding="cp1251">
+
+  <prefix name="table_"/>
+  <baseclass name="DBObject"/>
+
+  <table name="t_data" class="Data" description="presents data object">
+    <column name="data_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="date" type="datetime" default="null"/>
+    <column name="value" type="int" default="null"/>
+    <column name="string" type="varchar" length="64" default="null"/>
+    <column name="text" type="text" default="null"/>
+    <column name="enum" type="enum('red','black')" default="red"/>
+    <column name="blob" type="blob" default="null"/>
+    <column name="real" type="float" default="null"/>
+	
+    <column name="dictionary_id" type="int" default="null"
+      foreign-table="t_dictionary" foreign-key="dictionary_id"
+      member="dictionary" class="Dictionary"/>
+
+  </table>
+
+  <table name="t_dictionary" class="Dictionary" description="presents dictionary object">
+    <column name="dictionary_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="text" type="varchar" length="64" default="null"/>
+  </table>
+
+  <table name="t_link" type="relation" description="presents many-to-many link" >
+    <column name="link_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="data_id" type="int" default="not null"
+      foreign-table="t_data" foreign-key="data_id"
+      member="data" class="Data"/>
+	
+    <column name="dictionary_id" type="int" default="not null"
+      foreign-table="t_dictionary" foreign-key="dictionary_id"
+      member="dictionary" class="Dictionary" on-delete="set-null"/>
+  </table>
+
+  <table name="t_another_link" type="relation" class="Another" description="presents many-to-many link" >
+    <column name="another_link_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="owner_id" type="int" default="not null"
+      foreign-table="t_data" foreign-key="data_id"
+      member="data" class="Data"/>
+	
+    <column name="child_id" type="int" default="not null"
+      foreign-table="t_dictionary" foreign-key="dictionary_id"
+      member="dictionary" class="Dictionary" on-delete="cascade"/>
+  </table>
+  
+</database>

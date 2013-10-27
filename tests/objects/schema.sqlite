@@ -1,0 +1,64 @@
+    DROP TABLE IF EXISTS t_data; 
+         
+CREATE TABLE t_data (
+  data_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,date datetime DEFAULT NULL 
+  ,value integer DEFAULT NULL 
+  ,string varchar(64) DEFAULT NULL 
+  ,text text DEFAULT NULL 
+  ,enum string DEFAULT 'red'
+  ,blob blob DEFAULT NULL 
+  ,real float DEFAULT NULL 
+  ,dictionary_id integer DEFAULT NULL 
+
+  
+  
+  ,CONSTRAINT c_t_data_dictionary_id FOREIGN KEY(dictionary_id)
+    REFERENCES t_dictionary(dictionary_id)
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_dictionary; 
+         
+CREATE TABLE t_dictionary (
+  dictionary_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,text varchar(64) DEFAULT NULL 
+
+  
+  
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_link; 
+         
+CREATE TABLE t_link (
+  link_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,data_id integer NOT NULL 
+  ,dictionary_id integer NOT NULL 
+
+  
+  
+  ,CONSTRAINT c_t_link_data_id FOREIGN KEY(data_id)
+    REFERENCES t_data(data_id)
+  ,CONSTRAINT c_t_link_dictionary_id FOREIGN KEY(dictionary_id)
+    REFERENCES t_dictionary(dictionary_id) ON DELETE set-null
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_another_link; 
+         
+CREATE TABLE t_another_link (
+  another_link_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,owner_id integer NOT NULL 
+  ,child_id integer NOT NULL 
+
+  
+  
+  ,CONSTRAINT c_t_another_link_owner_id FOREIGN KEY(owner_id)
+    REFERENCES t_data(data_id)
+  ,CONSTRAINT c_t_another_link_child_id FOREIGN KEY(child_id)
+    REFERENCES t_dictionary(dictionary_id) ON DELETE cascade
+
+  )  ;
+
+  

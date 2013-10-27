@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//temis//vocabulary//EN
+    SYSTEM ID: http://temis.sigmalab/v01/database.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE database SYSTEM "database.dtd.dtd">
+
+    <database>
+    ...
+    </database>
+-->
+
+
+<!--- Database definition. -->
+<!ELEMENT database (table|baseclass|external|prefix|version)*>
+<!ATTLIST database
+    encoding CDATA #IMPLIED
+    type CDATA #IMPLIED
+  >
+
+<!--- Database version. Used for database syncronization by additional tool. -->
+<!ELEMENT version EMPTY>
+<!ATTLIST version
+    minor CDATA #IMPLIED
+    major CDATA #REQUIRED
+  >
+
+<!--- Table name prefix . -->
+<!ELEMENT prefix EMPTY>
+<!ATTLIST prefix
+    name CDATA #IMPLIED
+  >
+
+<!--- Add external files to PHP generated result.
+ section -  macro used for defing access path.
+ file    - PHP file name.
+-->
+<!ELEMENT external EMPTY>
+<!ATTLIST external
+    section CDATA #IMPLIED
+    file CDATA #IMPLIED
+  >
+
+<!--- Name of PHP class used as base class for generated objects.
+    usually used DBObject
+ -->
+<!ELEMENT baseclass EMPTY>
+<!ATTLIST baseclass
+    name CDATA #REQUIRED
+  >
+
+<!--- Table definition node.
+
+ Class - name of class which need to use for generated class definition.
+ type  - object type , if defned "relation" - then be generated RelationAdapter for object foreign keys
+-->
+<!ELEMENT table (column|data)*>
+<!ATTLIST table
+    name CDATA #REQUIRED
+    class CDATA #IMPLIED
+    type (relation|object)  "object"
+    description CDATA #IMPLIED
+  >
+
+<!--- Column defnition node.
+ @index - generate index for column
+ @uniqe - add unique contraint
+ @auto-increment  - add auto increment option
+ @default  - can be "null", "not null"  or default value
+-->
+<!ELEMENT column EMPTY>
+<!ATTLIST column
+    name CDATA #REQUIRED
+    class CDATA #IMPLIED
+    description CDATA #IMPLIED
+    default CDATA #IMPLIED
+    auto-increment (yes|no) "no" 
+    primary-key    (yes|no) "no" 
+    unique        (yes|no) "no"
+    index         (yes|no) "no"
+    required      (yes|no)  "no"
+    type (int|varchar|text|float|double|blob|mediumblob|date|datetime)  "int"
+    length CDATA #IMPLIED
+    member CDATA #IMPLIED
+    foreign-key CDATA #IMPLIED
+    foreign-table CDATA #IMPLIED
+    on-delete (cascade|set-null|restrict) "restrict" 
+    
+  >
+
+<!ELEMENT data (item)*>
+
+<!ELEMENT item EMPTY>
+<!ATTLIST item
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED
+    >
+
