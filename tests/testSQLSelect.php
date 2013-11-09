@@ -5,6 +5,10 @@ require_once( dirname(__FILE__ ) . "/../ADO.php");
 
 class testSqlSelect extends PhpTest_TestSuite
 {
+	function ws($str )
+	{
+		return str_replace("\n", "", $str );
+	}
 
 	function testSelect_Object()
 	{
@@ -28,7 +32,7 @@ class testSqlSelect extends PhpTest_TestSuite
 			." `d`.`dictionary_id` AS `dictionary_id`"
 			." FROM `t_data` AS `d`";
 		
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query) );
 	}
 	function testExpessions()
 	{
@@ -45,14 +49,14 @@ class testSqlSelect extends PhpTest_TestSuite
 		$expected = ""
 			."((`d`.`value` = 1)"
 			." AND (`d`.`date` = '1970-01-01 03:00:01')"
-			." AND (`d`.`string` = \"\")"
-			." AND (`d`.`text` = \"\")"
+			." AND (`d`.`string` = '')"
+			." AND (`d`.`text` = '')"
 			." AND (`d`.`text` IS NULL))"
 			;
 		
 		$query = SQL::compileExpr( $expr, new MysqlGenerator() );
 			
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query) );
 	}
 
 	/**
@@ -84,7 +88,7 @@ class testSqlSelect extends PhpTest_TestSuite
 		
 		$stm->addOrder( $data->tag_date() );
 		$stm->addGroup( $data->tag_date() );
-		$stm->addColumn( $dic->tag_text() );
+		$stm->addColumn( $dic->tag_text("dic_text1") );
 		$stm->addColumn( $dic->tag_text("dic_text") ); //same and alias
 		$stm->addJoin( $data->key_dictionary_id($dic) );
 
@@ -100,20 +104,20 @@ class testSqlSelect extends PhpTest_TestSuite
 			." `d`.`blob` AS `blob`,"
 			." `d`.`real` AS `real`,"
 			." `d`.`dictionary_id` AS `dictionary_id`,"
-			." `dic`.`text` AS `text`,"
+			." `dic`.`text` AS `dic_text1`,"
 			." `dic`.`text` AS `dic_text`"
 			." FROM `t_data` AS `d` "
 			."LEFT JOIN `t_dictionary` AS `dic` ON (`dic`.`dictionary_id` = `d`.`dictionary_id`) "
 			."WHERE ((`d`.`value` = 1)"
 			." AND (`d`.`date` = '1970-01-01 03:00:01')"
-			." AND (`d`.`string` = \"\")"
-			." AND (`d`.`text` = \"\")"
+			." AND (`d`.`string` = '')"
+			." AND (`d`.`text` = '')"
 			." AND (`d`.`text` IS NULL)) "
 			."GROUP BY `d`.`date` "
 			."ORDER BY `d`.`date` ASC"
 			;
 		
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query) );
 	}
 	
 	function testSelect_Condition1()
@@ -147,7 +151,7 @@ class testSqlSelect extends PhpTest_TestSuite
 			."OFFSET 10"
 			;
 		
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query) );
 		
 	}
 }

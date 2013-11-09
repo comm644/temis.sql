@@ -342,6 +342,11 @@ class Data extends DBObject
 
 	//Foreign keys
     
+            
+	/** Foreign key for tag_dictionary_id() as link to Dictionary::tag_dictionary_id()
+         *
+         * @return DBForeignKey
+         */
 	function key_dictionary_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -353,7 +358,7 @@ class Data extends DBObject
     
     
 	// Loaders
-    
+        
 	/** load dictionary specified by foreign key dictionary_id */
 	function load_dictionary( $ds )
 	{
@@ -361,7 +366,6 @@ class Data extends DBObject
 		$this->dictionary = $dba->getByPrimaryKey( $this->dictionary_id );
 	}
 	
-
 }
   
   /** \ingroup table_objects
@@ -504,8 +508,7 @@ class Dictionary extends DBObject
     
     
 	// Loaders
-    
-
+        
 }
   
   /** \ingroup table_objects
@@ -675,6 +678,11 @@ class table_t_link extends DBObject
 
 	//Foreign keys
     
+            
+	/** Foreign key for tag_data_id() as link to Data::tag_data_id()
+         *
+         * @return DBForeignKey
+         */
 	function key_data_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Data();
@@ -683,6 +691,11 @@ class table_t_link extends DBObject
 	}
       
     
+            
+	/** Foreign key for tag_dictionary_id() as link to Dictionary::tag_dictionary_id()
+         *
+         * @return DBForeignKey
+         */
 	function key_dictionary_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -694,7 +707,7 @@ class table_t_link extends DBObject
     
     
 	// Loaders
-    
+        
 	/** load data specified by foreign key data_id */
 	function load_data( $ds )
 	{
@@ -709,7 +722,6 @@ class table_t_link extends DBObject
 		$this->dictionary = $dba->getByPrimaryKey( $this->dictionary_id );
 	}
 	
-
 }
   
   /** \ingroup table_objects
@@ -879,6 +891,11 @@ class Another extends DBObject
 
 	//Foreign keys
     
+            
+	/** Foreign key for tag_owner_id() as link to Data::tag_data_id()
+         *
+         * @return DBForeignKey
+         */
 	function key_owner_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Data();
@@ -887,6 +904,11 @@ class Another extends DBObject
 	}
       
     
+            
+	/** Foreign key for tag_child_id() as link to Dictionary::tag_dictionary_id()
+         *
+         * @return DBForeignKey
+         */
 	function key_child_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -898,7 +920,7 @@ class Another extends DBObject
     
     
 	// Loaders
-    
+        
 	/** load data specified by foreign key owner_id */
 	function load_data( $ds )
 	{
@@ -913,7 +935,6 @@ class Another extends DBObject
 		$this->dictionary = $dba->getByPrimaryKey( $this->child_id );
 	}
 	
-
 }
   
 
@@ -929,7 +950,7 @@ class DataDictionaryRelation extends DBRelationAdapter
 	@param $objectID \b integer primary key of Data
 	@param $memberID \b integer primary key of Dictionary
 	 */
-	function getObject( $objectID, $memberID )
+	protected function getObject( $objectID, $memberID )
 	{
 		$obj = new table_t_link;
 		
@@ -941,7 +962,7 @@ class DataDictionaryRelation extends DBRelationAdapter
 	/** returns master object prototype of Data class
 	 @param $objectID \b integer assigned primary key of Data
 	 */
-	function getDataObject( $objectID )
+	protected function getDataObject( $objectID )
 	{
 		$obj = new Data();
 		$obj->data_id = $objectID;
@@ -950,7 +971,7 @@ class DataDictionaryRelation extends DBRelationAdapter
 	/** returns memebr object prototype of Dictionary class
 	 @param $memberID \b integer assigned primary key of Dictionary
 	 */
-	function getMemberObject( $memberID )
+	protected function getMemberObject( $memberID )
 	{
 		$obj = new Dictionary();
 		$obj->dictionary_id = $memberID;
@@ -958,10 +979,19 @@ class DataDictionaryRelation extends DBRelationAdapter
 	}
 	/** returns foreing keys for linking 
 	 */
-	function getForeignKeys()
+	protected function getForeignKeys()
 	{
 		return( array( "data_id", "dictionary_id" ) );
 
+	}
+        /** select Dictionary objects by Data primary key ID.
+         * @param DBDataSource $ds  connection to data source.
+         * @param integer $objectID  primary key of Data.
+         * @return array|Dictionary  collection ob member objects.
+         */
+	public function selectDictionarys( $ds, $objectID )
+	{
+		return $this->select( $ds, $objectID );
 	}
 }      
   
@@ -976,7 +1006,7 @@ class DictionaryDataRelation extends DBRelationAdapter
 	@param $objectID \b integer primary key of Dictionary
 	@param $memberID \b integer primary key of Data
 	 */
-	function getObject( $objectID, $memberID )
+	protected function getObject( $objectID, $memberID )
 	{
 		$obj = new table_t_link;
 		
@@ -988,7 +1018,7 @@ class DictionaryDataRelation extends DBRelationAdapter
 	/** returns master object prototype of Dictionary class
 	 @param $objectID \b integer assigned primary key of Dictionary
 	 */
-	function getDataObject( $objectID )
+	protected function getDataObject( $objectID )
 	{
 		$obj = new Dictionary();
 		$obj->dictionary_id = $objectID;
@@ -997,7 +1027,7 @@ class DictionaryDataRelation extends DBRelationAdapter
 	/** returns memebr object prototype of Data class
 	 @param $memberID \b integer assigned primary key of Data
 	 */
-	function getMemberObject( $memberID )
+	protected function getMemberObject( $memberID )
 	{
 		$obj = new Data();
 		$obj->data_id = $memberID;
@@ -1005,10 +1035,19 @@ class DictionaryDataRelation extends DBRelationAdapter
 	}
 	/** returns foreing keys for linking 
 	 */
-	function getForeignKeys()
+	protected function getForeignKeys()
 	{
 		return( array( "dictionary_id", "data_id" ) );
 
+	}
+        /** select Data objects by Dictionary primary key ID.
+         * @param DBDataSource $ds  connection to data source.
+         * @param integer $objectID  primary key of Dictionary.
+         * @return array|Data  collection ob member objects.
+         */
+	public function selectDatas( $ds, $objectID )
+	{
+		return $this->select( $ds, $objectID );
 	}
 }      
   
@@ -1025,7 +1064,7 @@ class AnotherDataDictionaryRelation extends DBRelationAdapter
 	@param $objectID \b integer primary key of Data
 	@param $memberID \b integer primary key of Dictionary
 	 */
-	function getObject( $objectID, $memberID )
+	protected function getObject( $objectID, $memberID )
 	{
 		$obj = new Another;
 		
@@ -1037,7 +1076,7 @@ class AnotherDataDictionaryRelation extends DBRelationAdapter
 	/** returns master object prototype of Data class
 	 @param $objectID \b integer assigned primary key of Data
 	 */
-	function getDataObject( $objectID )
+	protected function getDataObject( $objectID )
 	{
 		$obj = new Data();
 		$obj->owner_id = $objectID;
@@ -1046,7 +1085,7 @@ class AnotherDataDictionaryRelation extends DBRelationAdapter
 	/** returns memebr object prototype of Dictionary class
 	 @param $memberID \b integer assigned primary key of Dictionary
 	 */
-	function getMemberObject( $memberID )
+	protected function getMemberObject( $memberID )
 	{
 		$obj = new Dictionary();
 		$obj->child_id = $memberID;
@@ -1054,10 +1093,19 @@ class AnotherDataDictionaryRelation extends DBRelationAdapter
 	}
 	/** returns foreing keys for linking 
 	 */
-	function getForeignKeys()
+	protected function getForeignKeys()
 	{
 		return( array( "owner_id", "child_id" ) );
 
+	}
+        /** select Dictionary objects by Data primary key ID.
+         * @param DBDataSource $ds  connection to data source.
+         * @param integer $objectID  primary key of Data.
+         * @return array|Dictionary  collection ob member objects.
+         */
+	public function selectDictionarys( $ds, $objectID )
+	{
+		return $this->select( $ds, $objectID );
 	}
 }      
   

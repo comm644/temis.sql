@@ -407,7 +407,7 @@ class MysqlDataSource extends DBDataSource
 	}
 
 
-	function escapeString( $str )
+	static function escapeString( $str )
 	{
 		return( mysql_real_escape_string( $str ) );
 	}

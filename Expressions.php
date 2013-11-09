@@ -247,3 +247,17 @@ class ExprMath extends Expression
 }
 
 define( "CLASS_ExprMath", get_class( new ExprMath(null, null, null) ) );
+
+/**
+ * This class provides mathematics for expressions.
+ */
+class ExprJoin extends Expression
+{
+	function __construct($opcode)
+	{
+		$args = func_get_args();
+		array_shift($args);
+		parent::Expression($opcode, $args);
+	}
+}
+

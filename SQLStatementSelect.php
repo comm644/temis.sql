@@ -304,6 +304,9 @@ class SQLStatementSelect extends SQLStatement
 			else if ( get_class( $def ) == CLASS_SQLCode ) {
 				$str[] = $def->generate($generator);
 			}
+			else if ( is_a( $def, CLASS_SQLColumnExpr)) {
+				$str[] = $def->generate($generator);
+			}
 			else {
 				$table = ( $def->table ) ? $def->getTableAlias() : $this->table;
 				$str[] = SQLName::getNameFull( $table, $def->name, $generator );
@@ -316,7 +319,7 @@ class SQLStatementSelect extends SQLStatement
 
 			$parts[] = implode( " ", $str );
 		}
-		return( implode( ", ", $parts ));
+		return( implode( ",\n ", $parts ));
 	}
 
 

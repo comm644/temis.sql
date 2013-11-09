@@ -12,6 +12,10 @@ require_once( dirname(__FILE__ ) . "/../Mysql/MysqlDataSource.php");
  */
 class testSqlInsert extends PhpTest_TestSuite
 {
+	function ws($str )
+	{
+		return str_replace("\n", "", $str );
+	}
 	function setUp()
 	{
 	 mysql_connect(null, "root", "root");
@@ -31,7 +35,7 @@ class testSqlInsert extends PhpTest_TestSuite
 		$query = $stm->generate($generator );
 
         $this->assertEquals('INSERT INTO `t_data` ( `date`,`value`,`string`,`text`,`enum`,`blob`,`real`,`dictionary_id` ) '
-                .'VALUES ( \'2010-04-10 12:30:45\',1,"string\\\\path",NULL,"red",NULL,NULL,NULL )', $query);
+                .'VALUES ( \'2010-04-10 12:30:45\',1,\'string\\\\path\',NULL,\'red\',NULL,NULL,NULL )', $this->ws($query) );
     }
 	function xtestInsertSet()
 	{
@@ -68,9 +72,9 @@ class testSqlInsert extends PhpTest_TestSuite
 		$expected = "INSERT INTO `t_data` "
             ."( `date`,`value`,`string`,`text`,`enum`,`blob`,`real`,`dictionary_id` )"
             ." VALUES"
-            ." ( NULL,0,NULL,NULL,\"red\",NULL,NULL,NULL )";
+            ." ( NULL,0,NULL,NULL,'red',NULL,NULL,NULL )";
 
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query)  );
 	}
 	function testInsertValuesForArray()
 	{
@@ -86,11 +90,11 @@ class testSqlInsert extends PhpTest_TestSuite
 		$expected = "INSERT INTO `t_data` "
             ."( `date`,`value`,`string`,`text`,`enum`,`blob`,`real`,`dictionary_id` )"
             ." VALUES"
-            ." ( NULL,1001,NULL,NULL,\"red\",NULL,NULL,NULL )"
-		    .",( NULL,1001,NULL,NULL,\"red\",NULL,NULL,NULL )"
+            ." ( NULL,1001,NULL,NULL,'red',NULL,NULL,NULL )"
+		    .",( NULL,1001,NULL,NULL,'red',NULL,NULL,NULL )"
 		;
 
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query)  );
 	}
 
 
@@ -129,9 +133,8 @@ class testSqlInsert extends PhpTest_TestSuite
 
 		$expected = "INSERT INTO `t_data` "
 			."( `data_id`,`date`,`value`,`string`,`text`,`enum`,`blob`,`real`,`dictionary_id` )"
-			." VALUES ( 100,NULL,0,NULL,NULL,\"red\",NULL,NULL,NULL )";
+			." VALUES ( 100,NULL,0,NULL,NULL,'red',NULL,NULL,NULL )";
 
-		TS_ASSERT_EQUALS( $expected, $query );
+		TS_ASSERT_EQUALS( $expected, $this->ws($query) );
 	}
 }
-?>

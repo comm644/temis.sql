@@ -49,3 +49,6 @@ class SQLColumnExpr
 		return( implode(" ", $parts ));
 	}	
 }
+
+define( "CLASS_SQLColumnExpr", get_class( new SQLColumnExpr('') ) );
+

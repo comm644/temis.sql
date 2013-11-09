@@ -116,6 +116,15 @@ class testExpressions extends PhpTest_TestSuite
 		$query = $compiler->compile( $expr );
 		TS_ASSERT_EQUALS( "(`column` = 1)", $query );
 	}
+	function testEQUAL_0()
+	{
+		$expr = new ExprEQ( 'column', 0);
+
+		$compiler = $this-> getCompiler();
+		$query = $compiler->compile( $expr );
+		TS_ASSERT_EQUALS( "(`column` = 0)", $query );
+	}
+
 	
 	function testEQ_type_datetime()
 	{

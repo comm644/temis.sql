@@ -21,7 +21,7 @@ class testSqlDelete extends PhpTest_TestSuite
 		$generator = new MysqlGenerator();
 		$sql = $stm->generate($generator);
 		
-		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` LIKE \"begin%\")", $sql);
+		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` LIKE 'begin%')", $sql);
 	}
 	function testCanDeleteByEquals()
 	{
@@ -33,7 +33,7 @@ class testSqlDelete extends PhpTest_TestSuite
 		$generator = new MysqlGenerator();
 		$sql = $stm->generate($generator);
 		
-		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` = \"begin%\")", $sql);
+		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` = 'begin%')", $sql);
 	}
 	function testCanDeleteBySetExpression()
 	{
@@ -45,6 +45,6 @@ class testSqlDelete extends PhpTest_TestSuite
 		$generator = new MysqlGenerator();
 		$sql = $stm->generate($generator);
 		
-		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` = \"begin%\")", $sql);
+		$this->assertEquals("DELETE FROM `t_data` WHERE (`t_data`.`string` = 'begin%')", $sql);
 	}
 }

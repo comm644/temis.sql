@@ -32,7 +32,7 @@ class SQLDic
 	var $sqlIn   = "IN";
 	var $sqlAs   = "AS";
 
-	var $sqlLeftJoin="LEFT JOIN";
+	var $sqlLeftJoin="\nLEFT JOIN";
 	var $sqlOn="ON";
 
 	var $sqlOpenName="`";
@@ -40,7 +40,7 @@ class SQLDic
 	var $sqlTableColumnSeparator = '.';
 
 	var $sqlStringOpen = '"';
-	var $sqlStringclose = '"';
+	var $sqlStringClose = '"';
 
 	var $sqlInsert ="INSERT INTO";
 	var $sqlValues = "VALUES";

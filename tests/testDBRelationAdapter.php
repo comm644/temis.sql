@@ -8,6 +8,10 @@ require_once dirname(__FILE__) . '/mocks.php';
 
 class testDBRelationAdapter extends PhpTest_TestSuite
 {
+	function ws($str )
+	{
+		return str_replace("\n", "", $str );
+	}
 	function getSampleResult()
 	{
 		return array(
@@ -27,14 +31,14 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 
 		$query = $ra->getSelectQuery( 5 );
 		$expected = 
-			"SELECT `t_dictionary`.`dictionary_id`, `t_dictionary`.`text` "
+			"SELECT `t_dictionary`.`dictionary_id` AS `dictionary_id`, `t_dictionary`.`text` AS `text` "
 			."FROM `t_dictionary`,`t_link` "
 			."WHERE ((`t_link`.`dictionary_id` = `t_dictionary`.`dictionary_id`) "
 			."AND `t_link`.`data_id` IN (5))";
 
 		$gen = new SQLGenerator();
 		
-		TS_ASSERT_EQUALS( $expected, $gen->generate( $query ) );
+		TS_ASSERT_EQUALS( $expected, $this->ws($gen->generate( $query )) );
 	}
 
 	function testSelect_with_complex_types()
@@ -48,13 +52,13 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 
 		$query = $ra->getSelectQuery( 5 );
 		$expected = 
-			"SELECT `t_dictionary`.`dictionary_id`, `t_dictionary`.`text` "
+			"SELECT `t_dictionary`.`dictionary_id` AS `dictionary_id`, `t_dictionary`.`text` AS `text` "
 			."FROM `t_dictionary`,`t_another_link` "
 			."WHERE ((`t_another_link`.`child_id` = `t_dictionary`.`dictionary_id`) "
 			."AND `t_another_link`.`owner_id` IN (5))";
 		
 		$gen = new SQLGenerator();
-		TS_ASSERT_EQUALS( $expected, $gen->generate( $query ) );
+		TS_ASSERT_EQUALS( $expected, $this->wS($gen->generate( $query )) );
 	}
 	function testAdd()
 	{
@@ -67,10 +71,10 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 
 		$query = $ra->add($ds, 5, 1 );
 		
-		TS_ASSERT_CONTAINS($ds->query[0], "count( `t_link`.`link_id` )" );
-		TS_ASSERT_CONTAINS($ds->query[0], "WHERE ((`data_id` = 5) AND (`dictionary_id` = 1))");
+		TS_ASSERT_CONTAINS($this->ws($ds->query[0]), "count( `t_link`.`link_id` )" );
+		TS_ASSERT_CONTAINS($this->ws($ds->query[0]), "WHERE ((`t_link`.`data_id` = 5) AND (`t_link`.`dictionary_id` = 1))");
 		
-		TS_ASSERT_EQUALS( "INSERT INTO `t_link` SET `data_id`=5,`dictionary_id`=1", $ds->query[1] );
+		TS_ASSERT_EQUALS( "INSERT INTO `t_link` ( `data_id`,`dictionary_id` ) VALUES ( 5,1 )", $this->ws($ds->query[1]) );
 	}
 }
 ?>

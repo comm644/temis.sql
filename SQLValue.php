@@ -57,7 +57,10 @@ class SQLValue
 	 */
 	static function getAsString(&$value, $generator)
 	{
-		return sprintf('"%s"', $generator->escapeString($value));
+		return implode( "", array(
+			$generator->getDictionary()->sqlStringOpen,
+			$generator->escapeString($value),
+			$generator->getDictionary()->sqlStringClose));
 	}
 
 	static function getAsBLOB(&$value, $generator)

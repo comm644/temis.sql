@@ -35,7 +35,7 @@
 	
     <column name="dictionary_id" type="int" default="not null"
       foreign-table="t_dictionary" foreign-key="dictionary_id"
-      member="dictionary" class="Dictionary" on-delete="set-null"/>
+      member="dictionary" class="Dictionary" on-delete="set null"/>
   </table>
 
   <table name="t_another_link" type="relation" class="Another" description="presents many-to-many link" >

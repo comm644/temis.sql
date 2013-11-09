@@ -159,7 +159,13 @@ class PdoDataSource extends DBDataSource
 	 */
 	function queryCommand( $query, &$resultContainer )
 	{
-		$rowsAffected = $this->link->exec($query.";");
+		try  {
+			$rowsAffected = $this->link->exec($query.";");
+		}
+		catch( PDOException $e ) {
+			print( $query );
+			throw $e;
+		}
 
 		$resultContainer->add( $rowsAffected );
 		return 0;

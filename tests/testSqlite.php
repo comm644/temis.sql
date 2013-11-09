@@ -8,6 +8,10 @@ require_once( dirname(__FILE__ ) . "/../Sqlite/PdoDataSource.php" );
 
 class testSqlite extends PhpTest_TestSuite
 {
+	function ws($str )
+	{
+		return str_replace("\n", "", $str );
+	}
 
 	function executeStatement( $db, $sql )
 	{
@@ -76,18 +80,18 @@ class testSqlite extends PhpTest_TestSuite
 		//print $sql ."\n";
 		
 		$expected = "SELECT"
-		    ." d.data_id,"
-			." d.date,"
-			." d.value,"
-			." d.string,"
-			." d.text,"
-			." d.enum,"
-			." d.blob,"
-			." d.real,"
-			." d.dictionary_id"
+		    ." d.data_id AS data_id,"
+			." d.date AS date,"
+			." d.value AS value,"
+			." d.string AS string,"
+			." d.text AS text,"
+			." d.enum AS enum,"
+			." d.blob AS blob,"
+			." d.real AS real,"
+			." d.dictionary_id AS dictionary_id"
 			." FROM t_data AS d";
 		
-		TS_ASSERT_EQUALS( $expected, $sql );
+		TS_ASSERT_EQUALS( $expected, $this->ws($sql) );
 		
 
 		$rc = $this->executeStatement($db, $sql);

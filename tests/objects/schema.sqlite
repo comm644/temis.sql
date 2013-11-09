@@ -41,7 +41,7 @@ CREATE TABLE t_link (
   ,CONSTRAINT c_t_link_data_id FOREIGN KEY(data_id)
     REFERENCES t_data(data_id)
   ,CONSTRAINT c_t_link_dictionary_id FOREIGN KEY(dictionary_id)
-    REFERENCES t_dictionary(dictionary_id) ON DELETE set-null
+    REFERENCES t_dictionary(dictionary_id) ON DELETE set null
 
   )  ;
 

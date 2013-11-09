@@ -8,6 +8,7 @@ class SQLFunction
 	var $args = array();
 	var $alias=null;
 	var $type = 'string';
+	var $argsGlue = ', ';
 
 	/**
 	 * Create function definition
@@ -66,6 +67,13 @@ class SQLFunction
 	{
 		return( SQLFunction::_create1( "sum", $column, DBValueType_integer, $alias ) );
 	}
+	static function custom( $name, $args, $alias=null )
+	{
+		$func = SQLFunction::_create1( $name, $name, DBValueType_string, $alias );
+		$func->args = $args;
+		$func->argsGlue = ', ';
+		return( $func );
+	}
 
 	/**
 	 * Generate SQL query.
@@ -81,8 +89,11 @@ class SQLFunction
 		$parts = array();
 		
 		$parts[] = $this->name . $sql->sqlOpenFuncParams;
+		$pos =0 ;
 		foreach( $this->args as $arg ) {
+			if ( $pos > 0 ) $parts[] = $this->argsGlue;
 			$parts[] = $generator->generateColumn( $arg, $defaultTable );
+			$pos++;
 		}
 		$parts[] = $sql->sqlCloseFuncParams;
 		
