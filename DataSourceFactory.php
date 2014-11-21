@@ -9,11 +9,11 @@
  Description:
 ******************************************************************************/
 require_once( dirname( __FILE__ ) ."/Clonable.php" );
-require_once( dirname( __FILE__ ) ."/IDataSource.php" );
+
 
 /**
 
-\brief Data source factory, control your data sources
+\brief Data source factory, controls your data sources
 
 This class provides \b Factory  for creating DataSource object.
 and you can have creation object instance in \b uiPage constructor
@@ -31,7 +31,10 @@ class DataSourceFactory
 	 */
 	var $_dsn="";
 
-	/**  constains  prototype for creating \b DS objects */
+	/**
+	 * constains  prototype for creating \b DS objects
+	 * @var IDataSource|null
+	 */
 	var $_proto=null;
 
 	
@@ -45,16 +48,12 @@ class DataSourceFactory
 	 \li DataSource
 
 	 */
-	function DataSourceFactory( $dsn, $proto )
+	function DataSourceFactory( $dsn, IDataSource $proto )
 	{
 		if ( !is_subclass_of( $proto, CLASS_Clonable ) ) {
-			Diagnostics::error( "object " . get_class( $proto ) . " is not subclass of ". CLASS_Clonable );
+			throw new DatabaseException( "object " . get_class( $proto ) . " is not subclass of ". CLASS_Clonable );
 		}
 
-		if ( !is_subclass_of( $proto, CLASS_IDataSource ) ) {
-			Diagnostics::error( "object " . get_class( $proto ) . " is not subclass of ".CLASS_IDataSource );
-		}
-		
 		$this->_dsn = $dsn;
 		$this->_proto = $proto;
 	}
@@ -72,4 +71,3 @@ class DataSourceFactory
 		return(  $ds );
 	}
 }
-?>

@@ -9,11 +9,11 @@ Database helper.
 class DbHelper extends StmHelper
 {
 	/** Create new connection
-	    @return DBDataSource connected DataSource object
+	 *   @return DBDataSource connected DataSource object
 	*/
 	public static function getConnection()
 	{
-		return DbHelper::connect(SALES_DSN);
+		return DbHelper::connect(SAMLE_DSN);
 	}
 
 	/** Get connected "DataSource" object for the specific DSN
@@ -38,7 +38,7 @@ class DbHelper extends StmHelper
 	 * @param bool $registerChanges   true if need register changes.
 	 * @return array
 	 */
-	static function execute( $stm, $registerChanges=true )
+	static function execute( SQLStatement $stm, $registerChanges=true )
 	{
 		if ( !$stm ) {
 			return array();

@@ -35,6 +35,7 @@ class testSqlite extends PhpTest_TestSuite
 		if ( file_exists( $file ) ) unlink( $file );
 
 		$db = new PDO( "sqlite:$file");
+		$db->beginTransaction();
 
 
 		$sql= file_get_contents( dirname( __FILE__ ) ."/objects/schema.sqlite" );
@@ -70,7 +71,8 @@ class testSqlite extends PhpTest_TestSuite
 		$db->exec($sql.";");
 		//		$this->executeStatement($db, $sql);
 //		print "\n";
-		
+
+		$db->commit();
 		
 		$stm = new SQLStatementSelect( $data );
 
@@ -121,6 +123,8 @@ class testSqlite extends PhpTest_TestSuite
 		$ds = new PdoDataSource();
 		$ds->connect("sqlite://localhost/?database=$file");
 //		$ds->signShowQueries = true;
+
+		$ds->beginTransaction();
 		
 		$sql= file_get_contents( dirname( __FILE__ ) ."/objects/schema.sqlite" );
 		$container = new DBResultContainer();
@@ -179,7 +183,8 @@ class testSqlite extends PhpTest_TestSuite
 		$container = $stm->createResultContainer();
 		$ds->queryStatement($stm, $container);
 		$array = $container->getResult();
-		
+
+		$ds->commitTransaction();
 	}
 	
 	function printResult( $pdoStm )

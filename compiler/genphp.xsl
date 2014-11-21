@@ -27,18 +27,6 @@
  *
  *  File: <!-- <xsl:value-of select="$file"/> -->
  */
-require_once( DIR_MODULES . "/ADO/DBRelationAdapter.php" );
-require_once( DIR_MODULES . "/ADO/DBObject.php" );
-<xsl:for-each select="//external">
-  <xsl:variable name="section">
-    <xsl:choose>
-      <xsl:when test="@section = 'objects'">DIR_OBJECTS</xsl:when>
-      <xsl:when test="@section = 'modules'">DIR_MODULES</xsl:when>
-      <xsl:otherwise><xsl:value-of select="@section"/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-  <xsl:text>require_once( </xsl:text><xsl:value-of select="$section"/> . "<xsl:value-of select="@file"/>" );
-</xsl:for-each>
 
   <xsl:apply-templates select="database/include"/>
   
@@ -59,11 +47,17 @@ require_once( DIR_MODULES . "/ADO/DBObject.php" );
   <xsl:variable name="table-name" select="@name"/>
 
   <xsl:variable name="foreign-keys" select="column[count(@foreign-key) !=0]"/>
+  <xsl:variable name="use-baseclass">
+    <xsl:choose>
+      <xsl:when test="@baseclass != ''"><xsl:value-of select="@baseclass"/></xsl:when>
+      <xsl:otherwise><xsl:value-of select="$baseclass"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
   /** \ingroup table_objects
 
   Class describes object-table mapping information for table <xsl:value-of select="@name"/>
   */
-class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/>
+class <xsl:value-of select="$class"/> extends <xsl:value-of select="$use-baseclass"/>
 {
 	<xsl:apply-templates select="column" mode="create"/>
     
@@ -72,6 +66,13 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 	function <xsl:value-of select="$class"/>()
 	{
 		<xsl:apply-templates select="column" mode="init"/>
+	}
+
+	/** construct object
+	*/
+	function get<xsl:value-of select="$class"/>Prototype()
+	{
+		return new <xsl:value-of select="$class"/>();
 	}
 
 	/** get primary key name (obsolete/internal use only)
@@ -103,7 +104,7 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 	}
 
 	/** return DBColumnDefinition \b array
-	 @return \b array of DBColumnDefinition items - object relation scheme
+	 * @return \b array of DBColumnDefinition items - object relation scheme
 	 */
 	function getColumnDefinition()
 	{
@@ -116,7 +117,7 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 	}
 
 	/** get colum definitions for forein keys
-		@return array of DBColumnDefinition
+	 *@return array of DBColumnDefinition
 	 */
 	function getForeignKeys()
 	{
@@ -126,7 +127,7 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 	}
 
 	/** returns \b true if object is newly created
-	@return bool 
+	* @return bool
 	*/
 	function isNew()
 	{
@@ -148,7 +149,7 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 
     <xsl:for-each select="column">
 	/** get value from \a <xsl:value-of select="@name"/>  column 
-	@return <xsl:value-of select="@type"/> value
+	 * @return <xsl:value-of select="@type"/> value
 	*/
 	function get_<xsl:value-of select="@name"/>()
 	{
@@ -159,8 +160,8 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
 	//Tags
     <xsl:for-each select="column">
 	/** get column defintion for \a <xsl:value-of select="@name"/> column
-	 @param $alias \b string  alias for \a <xsl:value-of select="@name"/> column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a <xsl:value-of select="@name"/> column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_<xsl:value-of select="@name"/>( $alias=null )
 	{
@@ -183,26 +184,51 @@ class <xsl:value-of select="$class"/> extends <xsl:value-of select="$baseclass"/
        </xsl:variable>
             
 	/** Foreign key for tag_<xsl:value-of select="@name"/>() as link to <xsl:value-of select="$foreign-class"/>::tag_<xsl:value-of select="@foreign-key"/>()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_<xsl:value-of select="@name"/>($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new <xsl:value-of select="$foreign-class"/>();
 		$def = new DBForeignKey( <xsl:value-of select="$owner-tag"/>, <xsl:value-of select="$foreign-tag"/> );
 		return( $def );
 	}
-      
+      <xsl:if test="@parent-key='yes'">
+	function set_parent_key_value($value){
+		$this-&gt;set_<xsl:value-of select="@name"/>($value);
+	}
+
+	function get_parent_key_value(){
+		return $this-&gt;get_<xsl:value-of select="@name"/>();
+	}
+
+	/** Get foreign key of parent class
+	* @returns DBForeignKey
+	*/
+	function getParentKey($proto=NULL){
+		return $this-&gt;key_<xsl:value-of select="@name"/>($proto);
+	}
+
+        <xsl:if test="$baseclass != $use-baseclass">
+	/** Create prototype of parent class.
+	 * @returns  <xsl:value-of select="$use-baseclass"/>
+	*/
+	function parentPrototype()
+	{
+		return $this->get<xsl:value-of select="$use-baseclass"/>Prototype();
+	}
+        </xsl:if>
+
+      </xsl:if>
     </xsl:for-each>
     
     
 	// Loaders
         <xsl:for-each select="$foreign-keys[count(@member) != 0 and  count( @class ) != 0]">
 	/** load <xsl:value-of select="@member"/> specified by foreign key <xsl:value-of select="@name"/> */
-	function load_<xsl:value-of select="@member"/>( $ds )
+	function load_<xsl:value-of select="@member"/>( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new <xsl:value-of select="@class"/> );
-		$this-><xsl:value-of select="@member"/> = $dba->getByPrimaryKey( $this-><xsl:value-of select="@name"/> );
+		$this-><xsl:value-of select="@member"/> = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new <xsl:value-of select="@class"/>(), $this-><xsl:value-of select="@name"/> ));
 	}
 	</xsl:for-each>
 }

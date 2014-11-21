@@ -1,6 +1,8 @@
 <?php
 require_once( dirname( __FILE__ ). '/SqliteDictionary.php' );
 
+
+
 class SqliteGenerator extends SQLGenerator 
 {
 	/**

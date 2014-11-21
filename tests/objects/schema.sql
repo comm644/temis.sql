@@ -73,5 +73,65 @@ CREATE TABLE t_another_link (
   ) ENGINE=InnoDB CHARSET cp1251;
 
   
+DROP TABLE IF EXISTS t_base;
+CREATE TABLE t_base (
+  `base_id` int NOT NULL  auto_increment 
+  ,`baseData` int DEFAULT NULL
+
+  
+  ,CONSTRAINT c_t_base_base_id PRIMARY KEY(`base_id`)
+  
+
+  ) ENGINE=InnoDB CHARSET cp1251;
+
+  
+DROP TABLE IF EXISTS t_details;
+CREATE TABLE t_details (
+  `details_id` int NOT NULL  auto_increment 
+  ,`base_id` int NOT NULL 
+  ,`detailsData` int DEFAULT NULL
+
+  ,INDEX ix_t_details_base_id(`base_id` )
+  
+  ,CONSTRAINT c_t_details_details_id PRIMARY KEY(`details_id`)
+  
+  ,CONSTRAINT c_t_details_base_id FOREIGN KEY(`base_id`)
+    REFERENCES t_base(`base_id`) ON DELETE CASCADE
+
+  ) ENGINE=InnoDB CHARSET cp1251;
+
+  
+DROP TABLE IF EXISTS t_propertiesOne;
+CREATE TABLE t_propertiesOne (
+  `propertiesOne_id` int NOT NULL  auto_increment 
+  ,`base_id` int NOT NULL 
+  ,`propertiesOneData` int DEFAULT NULL
+
+  ,INDEX ix_t_propertiesOne_base_id(`base_id` )
+  
+  ,CONSTRAINT c_t_propertiesOne_propertiesOne_id PRIMARY KEY(`propertiesOne_id`)
+  
+  ,CONSTRAINT c_t_propertiesOne_base_id FOREIGN KEY(`base_id`)
+    REFERENCES t_base(`base_id`) ON DELETE CASCADE
+
+  ) ENGINE=InnoDB CHARSET cp1251;
+
+  
+DROP TABLE IF EXISTS t_propertiesTwo;
+CREATE TABLE t_propertiesTwo (
+  `propertiesTwo_id` int NOT NULL  auto_increment 
+  ,`base_id` int NOT NULL 
+  ,`propertiesTwoData` int DEFAULT NULL
+
+  ,INDEX ix_t_propertiesTwo_base_id(`base_id` )
+  
+  ,CONSTRAINT c_t_propertiesTwo_propertiesTwo_id PRIMARY KEY(`propertiesTwo_id`)
+  
+  ,CONSTRAINT c_t_propertiesTwo_base_id FOREIGN KEY(`base_id`)
+    REFERENCES t_base(`base_id`) ON DELETE CASCADE
+
+  ) ENGINE=InnoDB CHARSET cp1251;
+
+  
 SET FOREIGN_KEY_CHECKS = 1;
   

@@ -1,7 +1,6 @@
 <?php
 require_once( DIR_MODULES . "/funcset/copy_members.php" );
 require_once( DIR_MODULES . "/debug/debug.php" );
-require_once( dirname(__FILE__) .  '/../DBDataSource.php');
 
 
 class MockQueryAnswer
@@ -121,7 +120,7 @@ class MockDataSource extends DBDataSource
 	
 	
 	
-	function queryCommand( $query )
+	function queryCommand( $query, &$resultContainer )
 	{
 		$rc = true;
 		if ( $this->signShow ) printd( $query );
@@ -129,7 +128,7 @@ class MockDataSource extends DBDataSource
 
 		
 		if ( !is_array( $this->answer ) ) {
-			TS_ASSERT( false, " in [{$this->nRequest}:$row]" );
+			TS_ASSERT( false, " in [{$this->nRequest}: ]" );
 			TS_TRACE( "Answers for MockDataSource is not defined. should be Array" );
 		}
 		
@@ -176,6 +175,38 @@ class MockDataSource extends DBDataSource
 	{
 		$this->answer[] = array( array( "values"=>$values, "rc"=>$rc ) );
 	}
+
+	/**
+	 * Retrieve eroror message or code from DB engine (mysql/...)
+	 * @return string error message
+	 * @access protected
+	 */
+	function  getEngineError()
+	{
+		// TODO: Implement getEngineError() method.
+	}
+
+	/**
+	 * Gets DB engine name.
+	 * @return string engine name (mysql, or sqlite..)
+	 * @access protected
+	 */
+	function getEngineName()
+	{
+		// TODO: Implement getEngineName() method.
+	}
+
+	/** method performs connecting to data base
+	 * @param $dsn \b string describes Data Source Name  as next string:
+	engine_name://username:password@server[:port]/database
+	 * @return error code as \b enum specified for concrete data source
+	 */
+	function connect($dsn)
+	{
+		// TODO: Implement connect() method.
+	}
+
+
 }
 
 ?>

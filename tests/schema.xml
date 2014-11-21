@@ -49,5 +49,51 @@
       foreign-table="t_dictionary" foreign-key="dictionary_id"
       member="dictionary" class="Dictionary" on-delete="cascade"/>
   </table>
-  
+
+  <table name="t_base" >
+    <column name="base_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="baseData" type="int"/>
+  </table>
+
+  <table name="t_details" baseclass="table_t_base">
+    <column name="details_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="base_id" type="int" default="not null"
+            foreign-table="t_base" foreign-key="base_id" on-delete="cascade"
+            parent-key="yes"/>
+
+    <column name="detailsData" type="int"/>
+  </table>
+
+  <table name="t_subdetails" baseclass="table_t_details">
+    <column name="subdetails_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="details_id" type="int" default="not null"
+            foreign-table="t_details" foreign-key="details_id" on-delete="cascade"
+            parent-key="yes"/>
+
+    <column name="subDetailsData" type="int"/>
+  </table>
+
+  <table name="t_propertiesOne" >
+    <column name="propertiesOne_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="base_id" type="int" default="not null"
+            foreign-table="t_base" foreign-key="base_id" on-delete="cascade"
+            parent-key="yes"
+            />
+    <column name="propertiesOneData" type="int"/>
+  </table>
+
+  <table name="t_propertiesTwo" >
+    <column name="propertiesTwo_id" type="int" primary-key="yes" auto-increment="yes"/>
+
+    <column name="base_id" type="int" default="not null"
+            foreign-table="t_base" foreign-key="base_id" on-delete="cascade"
+            parent-key="yes"
+        />
+    <column name="propertiesTwoData" type="int"/>
+  </table>
+
 </database>

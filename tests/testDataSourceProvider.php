@@ -1,6 +1,4 @@
 <?php
-require_once( dirname( __FILE__ ). "/../IDataSource.php" );
-require_once( dirname( __FILE__ ). "/../DataSourceFactory.php" );
 
 
 class MyDataSource extends IDataSource
@@ -15,6 +13,15 @@ class MyDataSource extends IDataSource
 	function getDSN()
 	{
 		return( $this->_dsn );
+	}
+
+	/** execute SQLstatement
+	 * @param $statement SQLStatement object
+	 * @return success code
+	 */
+	function queryStatement($statement, $resultContainer = NULL)
+	{
+		// TODO: Implement queryStatement() method.
 	}
 }
 

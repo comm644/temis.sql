@@ -5,9 +5,8 @@
  *
  *  File: 
  */
-require_once( DIR_MODULES . "/ADO/DBRelationAdapter.php" );
-require_once( DIR_MODULES . "/ADO/DBObject.php" );
 
+  
   /** \ingroup table_objects
 
   Class describes object-table mapping information for table t_data
@@ -66,7 +65,7 @@ class Data extends DBObject
 	}
 
 	/** return DBColumnDefinition \b array
-	 @return \b array of DBColumnDefinition items - object relation scheme
+	 * @return \b array of DBColumnDefinition items - object relation scheme
 	 */
 	function getColumnDefinition()
 	{
@@ -85,7 +84,7 @@ class Data extends DBObject
 	}
 
 	/** get colum definitions for forein keys
-		@return array of DBColumnDefinition
+	 *@return array of DBColumnDefinition
 	 */
 	function getForeignKeys()
 	{
@@ -96,7 +95,7 @@ class Data extends DBObject
 	}
 
 	/** returns \b true if object is newly created
-	@return bool 
+	* @return bool
 	*/
 	function isNew()
 	{
@@ -166,7 +165,7 @@ class Data extends DBObject
 
     
 	/** get value from \a data_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_data_id()
 	{
@@ -174,7 +173,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a date  column 
-	@return datetime value
+	 * @return datetime value
 	*/
 	function get_date()
 	{
@@ -182,7 +181,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a value  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_value()
 	{
@@ -190,7 +189,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a string  column 
-	@return varchar value
+	 * @return varchar value
 	*/
 	function get_string()
 	{
@@ -198,7 +197,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a text  column 
-	@return text value
+	 * @return text value
 	*/
 	function get_text()
 	{
@@ -206,7 +205,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a enum  column 
-	@return enum('red','black') value
+	 * @return enum('red','black') value
 	*/
 	function get_enum()
 	{
@@ -214,7 +213,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a blob  column 
-	@return blob value
+	 * @return blob value
 	*/
 	function get_blob()
 	{
@@ -222,7 +221,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a real  column 
-	@return float value
+	 * @return float value
 	*/
 	function get_real()
 	{
@@ -230,7 +229,7 @@ class Data extends DBObject
 	}
 	
 	/** get value from \a dictionary_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_dictionary_id()
 	{
@@ -241,8 +240,8 @@ class Data extends DBObject
 	//Tags
     
 	/** get column defintion for \a data_id column
-	 @param $alias \b string  alias for \a data_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a data_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_data_id( $alias=null )
 	{
@@ -252,8 +251,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a date column
-	 @param $alias \b string  alias for \a date column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a date column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_date( $alias=null )
 	{
@@ -263,8 +262,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a value column
-	 @param $alias \b string  alias for \a value column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a value column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_value( $alias=null )
 	{
@@ -274,8 +273,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a string column
-	 @param $alias \b string  alias for \a string column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a string column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_string( $alias=null )
 	{
@@ -285,8 +284,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a text column
-	 @param $alias \b string  alias for \a text column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a text column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_text( $alias=null )
 	{
@@ -296,8 +295,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a enum column
-	 @param $alias \b string  alias for \a enum column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a enum column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_enum( $alias=null )
 	{
@@ -307,8 +306,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a blob column
-	 @param $alias \b string  alias for \a blob column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a blob column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_blob( $alias=null )
 	{
@@ -318,8 +317,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a real column
-	 @param $alias \b string  alias for \a real column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a real column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_real( $alias=null )
 	{
@@ -329,8 +328,8 @@ class Data extends DBObject
 	}
 	
 	/** get column defintion for \a dictionary_id column
-	 @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_dictionary_id( $alias=null )
 	{
@@ -344,9 +343,9 @@ class Data extends DBObject
     
             
 	/** Foreign key for tag_dictionary_id() as link to Dictionary::tag_dictionary_id()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_dictionary_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -356,14 +355,12 @@ class Data extends DBObject
       
     
     
-    
 	// Loaders
         
 	/** load dictionary specified by foreign key dictionary_id */
-	function load_dictionary( $ds )
+	function load_dictionary( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new Dictionary );
-		$this->dictionary = $dba->getByPrimaryKey( $this->dictionary_id );
+		$this->dictionary = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new Dictionary(), $this->dictionary_id ));
 	}
 	
 }
@@ -412,7 +409,7 @@ class Dictionary extends DBObject
 	}
 
 	/** return DBColumnDefinition \b array
-	 @return \b array of DBColumnDefinition items - object relation scheme
+	 * @return \b array of DBColumnDefinition items - object relation scheme
 	 */
 	function getColumnDefinition()
 	{
@@ -424,7 +421,7 @@ class Dictionary extends DBObject
 	}
 
 	/** get colum definitions for forein keys
-		@return array of DBColumnDefinition
+	 *@return array of DBColumnDefinition
 	 */
 	function getForeignKeys()
 	{
@@ -434,7 +431,7 @@ class Dictionary extends DBObject
 	}
 
 	/** returns \b true if object is newly created
-	@return bool 
+	* @return bool
 	*/
 	function isNew()
 	{
@@ -462,7 +459,7 @@ class Dictionary extends DBObject
 
     
 	/** get value from \a dictionary_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_dictionary_id()
 	{
@@ -470,7 +467,7 @@ class Dictionary extends DBObject
 	}
 	
 	/** get value from \a text  column 
-	@return varchar value
+	 * @return varchar value
 	*/
 	function get_text()
 	{
@@ -481,8 +478,8 @@ class Dictionary extends DBObject
 	//Tags
     
 	/** get column defintion for \a dictionary_id column
-	 @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_dictionary_id( $alias=null )
 	{
@@ -492,8 +489,8 @@ class Dictionary extends DBObject
 	}
 	
 	/** get column defintion for \a text column
-	 @param $alias \b string  alias for \a text column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a text column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_text( $alias=null )
 	{
@@ -557,7 +554,7 @@ class table_t_link extends DBObject
 	}
 
 	/** return DBColumnDefinition \b array
-	 @return \b array of DBColumnDefinition items - object relation scheme
+	 * @return \b array of DBColumnDefinition items - object relation scheme
 	 */
 	function getColumnDefinition()
 	{
@@ -570,7 +567,7 @@ class table_t_link extends DBObject
 	}
 
 	/** get colum definitions for forein keys
-		@return array of DBColumnDefinition
+	 *@return array of DBColumnDefinition
 	 */
 	function getForeignKeys()
 	{
@@ -582,7 +579,7 @@ class table_t_link extends DBObject
 	}
 
 	/** returns \b true if object is newly created
-	@return bool 
+	* @return bool
 	*/
 	function isNew()
 	{
@@ -616,7 +613,7 @@ class table_t_link extends DBObject
 
     
 	/** get value from \a link_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_link_id()
 	{
@@ -624,7 +621,7 @@ class table_t_link extends DBObject
 	}
 	
 	/** get value from \a data_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_data_id()
 	{
@@ -632,7 +629,7 @@ class table_t_link extends DBObject
 	}
 	
 	/** get value from \a dictionary_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_dictionary_id()
 	{
@@ -643,8 +640,8 @@ class table_t_link extends DBObject
 	//Tags
     
 	/** get column defintion for \a link_id column
-	 @param $alias \b string  alias for \a link_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a link_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_link_id( $alias=null )
 	{
@@ -654,8 +651,8 @@ class table_t_link extends DBObject
 	}
 	
 	/** get column defintion for \a data_id column
-	 @param $alias \b string  alias for \a data_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a data_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_data_id( $alias=null )
 	{
@@ -665,8 +662,8 @@ class table_t_link extends DBObject
 	}
 	
 	/** get column defintion for \a dictionary_id column
-	 @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a dictionary_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_dictionary_id( $alias=null )
 	{
@@ -680,9 +677,9 @@ class table_t_link extends DBObject
     
             
 	/** Foreign key for tag_data_id() as link to Data::tag_data_id()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_data_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Data();
@@ -690,12 +687,11 @@ class table_t_link extends DBObject
 		return( $def );
 	}
       
-    
             
 	/** Foreign key for tag_dictionary_id() as link to Dictionary::tag_dictionary_id()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_dictionary_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -705,21 +701,18 @@ class table_t_link extends DBObject
       
     
     
-    
 	// Loaders
         
 	/** load data specified by foreign key data_id */
-	function load_data( $ds )
+	function load_data( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new Data );
-		$this->data = $dba->getByPrimaryKey( $this->data_id );
+		$this->data = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new Data(), $this->data_id ));
 	}
 	
 	/** load dictionary specified by foreign key dictionary_id */
-	function load_dictionary( $ds )
+	function load_dictionary( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new Dictionary );
-		$this->dictionary = $dba->getByPrimaryKey( $this->dictionary_id );
+		$this->dictionary = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new Dictionary(), $this->dictionary_id ));
 	}
 	
 }
@@ -770,7 +763,7 @@ class Another extends DBObject
 	}
 
 	/** return DBColumnDefinition \b array
-	 @return \b array of DBColumnDefinition items - object relation scheme
+	 * @return \b array of DBColumnDefinition items - object relation scheme
 	 */
 	function getColumnDefinition()
 	{
@@ -783,7 +776,7 @@ class Another extends DBObject
 	}
 
 	/** get colum definitions for forein keys
-		@return array of DBColumnDefinition
+	 *@return array of DBColumnDefinition
 	 */
 	function getForeignKeys()
 	{
@@ -795,7 +788,7 @@ class Another extends DBObject
 	}
 
 	/** returns \b true if object is newly created
-	@return bool 
+	* @return bool
 	*/
 	function isNew()
 	{
@@ -829,7 +822,7 @@ class Another extends DBObject
 
     
 	/** get value from \a another_link_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_another_link_id()
 	{
@@ -837,7 +830,7 @@ class Another extends DBObject
 	}
 	
 	/** get value from \a owner_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_owner_id()
 	{
@@ -845,7 +838,7 @@ class Another extends DBObject
 	}
 	
 	/** get value from \a child_id  column 
-	@return int value
+	 * @return int value
 	*/
 	function get_child_id()
 	{
@@ -856,8 +849,8 @@ class Another extends DBObject
 	//Tags
     
 	/** get column defintion for \a another_link_id column
-	 @param $alias \b string  alias for \a another_link_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a another_link_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_another_link_id( $alias=null )
 	{
@@ -867,8 +860,8 @@ class Another extends DBObject
 	}
 	
 	/** get column defintion for \a owner_id column
-	 @param $alias \b string  alias for \a owner_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a owner_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_owner_id( $alias=null )
 	{
@@ -878,8 +871,8 @@ class Another extends DBObject
 	}
 	
 	/** get column defintion for \a child_id column
-	 @param $alias \b string  alias for \a child_id column which will be used for on SQL query generation stage
-     @return DBColumnDefinition
+	 * @param $alias \b string  alias for \a child_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
 	 */
 	function tag_child_id( $alias=null )
 	{
@@ -893,9 +886,9 @@ class Another extends DBObject
     
             
 	/** Foreign key for tag_owner_id() as link to Data::tag_data_id()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_owner_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Data();
@@ -903,12 +896,11 @@ class Another extends DBObject
 		return( $def );
 	}
       
-    
             
 	/** Foreign key for tag_child_id() as link to Dictionary::tag_dictionary_id()
-         *
-         * @return DBForeignKey
-         */
+	 *
+	 * @return DBForeignKey
+	 */
 	function key_child_id($proto=null)
 	{
 		if ( is_null($proto) ) $proto = new Dictionary();
@@ -918,23 +910,784 @@ class Another extends DBObject
       
     
     
-    
 	// Loaders
         
 	/** load data specified by foreign key owner_id */
-	function load_data( $ds )
+	function load_data( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new Data );
-		$this->data = $dba->getByPrimaryKey( $this->owner_id );
+		$this->data = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new Data(), $this->owner_id ));
 	}
 	
 	/** load dictionary specified by foreign key child_id */
-	function load_dictionary( $ds )
+	function load_dictionary( IDataSource $ds )
 	{
-		$dba = new DBObjectAdapter( $ds, new Dictionary );
-		$this->dictionary = $dba->getByPrimaryKey( $this->child_id );
+		$this->dictionary = $ds->queryStatement(StmHelper::stmSelectByPrimaryKey(new Dictionary(), $this->child_id ));
 	}
 	
+}
+  
+  /** \ingroup table_objects
+
+  Class describes object-table mapping information for table t_base
+  */
+class table_t_base extends DBObject
+{
+	
+	var $base_id;
+	var $baseData;
+    
+	/** construct object
+	*/
+	function table_t_base()
+	{
+		
+	  	$this->base_id =  0 ;
+	  	$this->baseData =  NULL;
+	}
+
+	/** get primary key name (obsolete/internal use only)
+	 @returns primary key column name as \b string , for this object it will be \a base_id
+	*/
+	function primary_key()
+	{
+		return( "base_id" );
+	}
+        
+	/** get primary key value
+	 @returns primary key value with type as defined in database (value of \a base_id )
+	*/
+	function primary_key_value()
+	{
+		return( $this->base_id );
+		
+	}
+
+	/** always contains \a "t_base" 
+	 */
+	function table_name()
+	{
+		return( "t_base" );
+	}
+
+	/** return DBColumnDefinition \b array
+	 * @return \b array of DBColumnDefinition items - object relation scheme
+	 */
+	function getColumnDefinition()
+	{
+		$columnDefinition = array();
+        		$columnDefinition[ "base_id" ] = $this->tag_base_id();
+		$columnDefinition[ "baseData" ] = $this->tag_baseData();
+
+		return( $columnDefinition );
+	}
+
+	/** get colum definitions for forein keys
+	 *@return array of DBColumnDefinition
+	 */
+	function getForeignKeys()
+	{
+		$keyDefs = array();
+		
+		return( $keyDefs );
+	}
+
+	/** returns \b true if object is newly created
+	* @return bool
+	*/
+	function isNew()
+	{
+		$val = $this->primary_key_value() ;
+		return( $val === 0 || $val === -1 );
+	}
+        
+	// Set methods
+
+    
+	/** set value to base_id  column */
+	function set_base_id( $value )
+	{
+		return( $this->setValue( "base_id", $value ));
+	}
+	
+	/** set value to baseData  column */
+	function set_baseData( $value )
+	{
+		return( $this->setValue( "baseData", $value ));
+	}
+	
+
+	//Get methods
+
+    
+	/** get value from \a base_id  column 
+	 * @return int value
+	*/
+	function get_base_id()
+	{
+		return( $this->base_id );
+	}
+	
+	/** get value from \a baseData  column 
+	 * @return int value
+	*/
+	function get_baseData()
+	{
+		return( $this->baseData );
+	}
+	
+
+	//Tags
+    
+	/** get column defintion for \a base_id column
+	 * @param $alias \b string  alias for \a base_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_base_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "base_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a baseData column
+	 * @param $alias \b string  alias for \a baseData column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_baseData( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "baseData", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+
+	//Foreign keys
+    
+    
+    
+	// Loaders
+        
+}
+  
+  /** \ingroup table_objects
+
+  Class describes object-table mapping information for table t_details
+  */
+class table_t_details extends table_t_base
+{
+	
+	var $details_id;
+	var $base_id;
+	var $detailsData;
+    
+	/** construct object
+	*/
+	function table_t_details()
+	{
+		
+	  	$this->details_id =  0 ;
+	  	$this->base_id =  -1 ;
+	  	$this->detailsData =  NULL;
+	}
+
+	/** get primary key name (obsolete/internal use only)
+	 @returns primary key column name as \b string , for this object it will be \a details_id
+	*/
+	function primary_key()
+	{
+		return( "details_id" );
+	}
+        
+	/** get primary key value
+	 @returns primary key value with type as defined in database (value of \a details_id )
+	*/
+	function primary_key_value()
+	{
+		return( $this->details_id );
+		
+	}
+
+	/** always contains \a "t_details" 
+	 */
+	function table_name()
+	{
+		return( "t_details" );
+	}
+
+	/** return DBColumnDefinition \b array
+	 * @return \b array of DBColumnDefinition items - object relation scheme
+	 */
+	function getColumnDefinition()
+	{
+		$columnDefinition = array();
+        		$columnDefinition[ "details_id" ] = $this->tag_details_id();
+		$columnDefinition[ "base_id" ] = $this->tag_base_id();
+		$columnDefinition[ "detailsData" ] = $this->tag_detailsData();
+
+		return( $columnDefinition );
+	}
+
+	/** get colum definitions for forein keys
+	 *@return array of DBColumnDefinition
+	 */
+	function getForeignKeys()
+	{
+		$keyDefs = array();
+		$keyDefs[ "base_id" ] = $this->key_base_id();
+  
+		return( $keyDefs );
+	}
+
+	/** returns \b true if object is newly created
+	* @return bool
+	*/
+	function isNew()
+	{
+		$val = $this->primary_key_value() ;
+		return( $val === 0 || $val === -1 );
+	}
+        
+	// Set methods
+
+    
+	/** set value to details_id  column */
+	function set_details_id( $value )
+	{
+		return( $this->setValue( "details_id", $value ));
+	}
+	
+	/** set value to base_id  column */
+	function set_base_id( $value )
+	{
+		return( $this->setValue( "base_id", $value ));
+	}
+	
+	/** set value to detailsData  column */
+	function set_detailsData( $value )
+	{
+		return( $this->setValue( "detailsData", $value ));
+	}
+	
+
+	//Get methods
+
+    
+	/** get value from \a details_id  column 
+	 * @return int value
+	*/
+	function get_details_id()
+	{
+		return( $this->details_id );
+	}
+	
+	/** get value from \a base_id  column 
+	 * @return int value
+	*/
+	function get_base_id()
+	{
+		return( $this->base_id );
+	}
+	
+	/** get value from \a detailsData  column 
+	 * @return int value
+	*/
+	function get_detailsData()
+	{
+		return( $this->detailsData );
+	}
+	
+
+	//Tags
+    
+	/** get column defintion for \a details_id column
+	 * @param $alias \b string  alias for \a details_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_details_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "details_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a base_id column
+	 * @param $alias \b string  alias for \a base_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_base_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "base_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a detailsData column
+	 * @param $alias \b string  alias for \a detailsData column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_detailsData( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "detailsData", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+
+	//Foreign keys
+    
+            
+	/** Foreign key for tag_base_id() as link to table_t_base::tag_base_id()
+	 *
+	 * @return DBForeignKey
+	 */
+	function key_base_id($proto=null)
+	{
+		if ( is_null($proto) ) $proto = new table_t_base();
+		$def = new DBForeignKey( $this->tag_base_id(), $proto->tag_base_id() );
+		return( $def );
+	}
+      
+	function set_parent_key_value($value){
+		$this->set_base_id($value);
+	}
+
+	function get_parent_key_value(){
+		return $this->get_base_id();
+	}
+
+	/** Get foreign key of parent class
+	* @returns DBForeignKey
+	*/
+	function getParentKey($proto=NULL){
+		return $this->key_base_id($proto);
+	}
+	/** Create prototype of parent class.
+	 * @returns  table_t_base
+	*/
+	function parentPrototype()
+	{
+		return new table_t_base();
+	}
+
+      
+    
+    
+	// Loaders
+        
+}
+  
+  /** \ingroup table_objects
+
+  Class describes object-table mapping information for table t_propertiesOne
+  */
+class table_t_propertiesOne extends DBObject
+{
+	
+	var $propertiesOne_id;
+	var $base_id;
+	var $propertiesOneData;
+    
+	/** construct object
+	*/
+	function table_t_propertiesOne()
+	{
+		
+	  	$this->propertiesOne_id =  0 ;
+	  	$this->base_id =  -1 ;
+	  	$this->propertiesOneData =  NULL;
+	}
+
+	/** get primary key name (obsolete/internal use only)
+	 @returns primary key column name as \b string , for this object it will be \a propertiesOne_id
+	*/
+	function primary_key()
+	{
+		return( "propertiesOne_id" );
+	}
+        
+	/** get primary key value
+	 @returns primary key value with type as defined in database (value of \a propertiesOne_id )
+	*/
+	function primary_key_value()
+	{
+		return( $this->propertiesOne_id );
+		
+	}
+
+	/** always contains \a "t_propertiesOne" 
+	 */
+	function table_name()
+	{
+		return( "t_propertiesOne" );
+	}
+
+	/** return DBColumnDefinition \b array
+	 * @return \b array of DBColumnDefinition items - object relation scheme
+	 */
+	function getColumnDefinition()
+	{
+		$columnDefinition = array();
+        		$columnDefinition[ "propertiesOne_id" ] = $this->tag_propertiesOne_id();
+		$columnDefinition[ "base_id" ] = $this->tag_base_id();
+		$columnDefinition[ "propertiesOneData" ] = $this->tag_propertiesOneData();
+
+		return( $columnDefinition );
+	}
+
+	/** get colum definitions for forein keys
+	 *@return array of DBColumnDefinition
+	 */
+	function getForeignKeys()
+	{
+		$keyDefs = array();
+		$keyDefs[ "base_id" ] = $this->key_base_id();
+  
+		return( $keyDefs );
+	}
+
+	/** returns \b true if object is newly created
+	* @return bool
+	*/
+	function isNew()
+	{
+		$val = $this->primary_key_value() ;
+		return( $val === 0 || $val === -1 );
+	}
+        
+	// Set methods
+
+    
+	/** set value to propertiesOne_id  column */
+	function set_propertiesOne_id( $value )
+	{
+		return( $this->setValue( "propertiesOne_id", $value ));
+	}
+	
+	/** set value to base_id  column */
+	function set_base_id( $value )
+	{
+		return( $this->setValue( "base_id", $value ));
+	}
+	
+	/** set value to propertiesOneData  column */
+	function set_propertiesOneData( $value )
+	{
+		return( $this->setValue( "propertiesOneData", $value ));
+	}
+	
+
+	//Get methods
+
+    
+	/** get value from \a propertiesOne_id  column 
+	 * @return int value
+	*/
+	function get_propertiesOne_id()
+	{
+		return( $this->propertiesOne_id );
+	}
+	
+	/** get value from \a base_id  column 
+	 * @return int value
+	*/
+	function get_base_id()
+	{
+		return( $this->base_id );
+	}
+	
+	/** get value from \a propertiesOneData  column 
+	 * @return int value
+	*/
+	function get_propertiesOneData()
+	{
+		return( $this->propertiesOneData );
+	}
+	
+
+	//Tags
+    
+	/** get column defintion for \a propertiesOne_id column
+	 * @param $alias \b string  alias for \a propertiesOne_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_propertiesOne_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "propertiesOne_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a base_id column
+	 * @param $alias \b string  alias for \a base_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_base_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "base_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a propertiesOneData column
+	 * @param $alias \b string  alias for \a propertiesOneData column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_propertiesOneData( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "propertiesOneData", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+
+	//Foreign keys
+    
+            
+	/** Foreign key for tag_base_id() as link to table_t_base::tag_base_id()
+	 *
+	 * @return DBForeignKey
+	 */
+	function key_base_id($proto=null)
+	{
+		if ( is_null($proto) ) $proto = new table_t_base();
+		$def = new DBForeignKey( $this->tag_base_id(), $proto->tag_base_id() );
+		return( $def );
+	}
+      
+	function set_parent_key_value($value){
+		$this->set_base_id($value);
+	}
+
+	function get_parent_key_value(){
+		return $this->get_base_id();
+	}
+
+	/** Get foreign key of parent class
+	* @returns DBForeignKey
+	*/
+	function getParentKey($proto=NULL){
+		return $this->key_base_id($proto);
+	}
+	/** Create prototype of parent class.
+	 * @returns  DBObject
+	*/
+	function parentPrototype()
+	{
+		return new DBObject();
+	}
+
+      
+    
+    
+	// Loaders
+        
+}
+  
+  /** \ingroup table_objects
+
+  Class describes object-table mapping information for table t_propertiesTwo
+  */
+class table_t_propertiesTwo extends DBObject
+{
+	
+	var $propertiesTwo_id;
+	var $base_id;
+	var $propertiesTwoData;
+    
+	/** construct object
+	*/
+	function table_t_propertiesTwo()
+	{
+		
+	  	$this->propertiesTwo_id =  0 ;
+	  	$this->base_id =  -1 ;
+	  	$this->propertiesTwoData =  NULL;
+	}
+
+	/** get primary key name (obsolete/internal use only)
+	 @returns primary key column name as \b string , for this object it will be \a propertiesTwo_id
+	*/
+	function primary_key()
+	{
+		return( "propertiesTwo_id" );
+	}
+        
+	/** get primary key value
+	 @returns primary key value with type as defined in database (value of \a propertiesTwo_id )
+	*/
+	function primary_key_value()
+	{
+		return( $this->propertiesTwo_id );
+		
+	}
+
+	/** always contains \a "t_propertiesTwo" 
+	 */
+	function table_name()
+	{
+		return( "t_propertiesTwo" );
+	}
+
+	/** return DBColumnDefinition \b array
+	 * @return \b array of DBColumnDefinition items - object relation scheme
+	 */
+	function getColumnDefinition()
+	{
+		$columnDefinition = array();
+        		$columnDefinition[ "propertiesTwo_id" ] = $this->tag_propertiesTwo_id();
+		$columnDefinition[ "base_id" ] = $this->tag_base_id();
+		$columnDefinition[ "propertiesTwoData" ] = $this->tag_propertiesTwoData();
+
+		return( $columnDefinition );
+	}
+
+	/** get colum definitions for forein keys
+	 *@return array of DBColumnDefinition
+	 */
+	function getForeignKeys()
+	{
+		$keyDefs = array();
+		$keyDefs[ "base_id" ] = $this->key_base_id();
+  
+		return( $keyDefs );
+	}
+
+	/** returns \b true if object is newly created
+	* @return bool
+	*/
+	function isNew()
+	{
+		$val = $this->primary_key_value() ;
+		return( $val === 0 || $val === -1 );
+	}
+        
+	// Set methods
+
+    
+	/** set value to propertiesTwo_id  column */
+	function set_propertiesTwo_id( $value )
+	{
+		return( $this->setValue( "propertiesTwo_id", $value ));
+	}
+	
+	/** set value to base_id  column */
+	function set_base_id( $value )
+	{
+		return( $this->setValue( "base_id", $value ));
+	}
+	
+	/** set value to propertiesTwoData  column */
+	function set_propertiesTwoData( $value )
+	{
+		return( $this->setValue( "propertiesTwoData", $value ));
+	}
+	
+
+	//Get methods
+
+    
+	/** get value from \a propertiesTwo_id  column 
+	 * @return int value
+	*/
+	function get_propertiesTwo_id()
+	{
+		return( $this->propertiesTwo_id );
+	}
+	
+	/** get value from \a base_id  column 
+	 * @return int value
+	*/
+	function get_base_id()
+	{
+		return( $this->base_id );
+	}
+	
+	/** get value from \a propertiesTwoData  column 
+	 * @return int value
+	*/
+	function get_propertiesTwoData()
+	{
+		return( $this->propertiesTwoData );
+	}
+	
+
+	//Tags
+    
+	/** get column defintion for \a propertiesTwo_id column
+	 * @param $alias \b string  alias for \a propertiesTwo_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_propertiesTwo_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "propertiesTwo_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a base_id column
+	 * @param $alias \b string  alias for \a base_id column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_base_id( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "base_id", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+	/** get column defintion for \a propertiesTwoData column
+	 * @param $alias \b string  alias for \a propertiesTwoData column which will be used for on SQL query generation stage
+	 * @return DBColumnDefinition
+	 */
+	function tag_propertiesTwoData( $alias=null )
+	{
+	    $def = new DBColumnDefinition( "propertiesTwoData", "int",$alias,$this);
+  
+		return( $def );
+	}
+	
+
+	//Foreign keys
+    
+            
+	/** Foreign key for tag_base_id() as link to table_t_base::tag_base_id()
+	 *
+	 * @return DBForeignKey
+	 */
+	function key_base_id($proto=null)
+	{
+		if ( is_null($proto) ) $proto = new table_t_base();
+		$def = new DBForeignKey( $this->tag_base_id(), $proto->tag_base_id() );
+		return( $def );
+	}
+      
+	function set_parent_key_value($value){
+		$this->set_base_id($value);
+	}
+
+	function get_parent_key_value(){
+		return $this->get_base_id();
+	}
+
+	/** Get foreign key of parent class
+	* @returns DBForeignKey
+	*/
+	function getParentKey($proto=NULL){
+		return $this->key_base_id($proto);
+	}
+	/** Create prototype of parent class.
+	 * @returns  DBObject
+	*/
+	function parentPrototype()
+	{
+		return new DBObject();
+	}
+
+      
+    
+    
+	// Loaders
+        
 }
   
 

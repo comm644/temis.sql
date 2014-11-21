@@ -16,4 +16,3 @@ class Clonable
 		return( clone $this );
 	}
 }
-?>

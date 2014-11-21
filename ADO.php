@@ -65,23 +65,15 @@
   */
 if( !defined( "__ADO_PHP_DIR__" ) ) define(  "__ADO_PHP_DIR__", dirname( __FILE__ ) . '/' );
 
-
-//base objects
-require_once( __ADO_PHP_DIR__ . "DBAdapter.php" );
-require_once( __ADO_PHP_DIR__ . "DBObject.php" );
-require_once( __ADO_PHP_DIR__  . "DBCommand.php" );
-require_once( __ADO_PHP_DIR__  . "DBObjectAdapter.php" );
-
-//advanced features :: expressions
-require_once( __ADO_PHP_DIR__  . "Expressions.php" );
-require_once( __ADO_PHP_DIR__  . "ECompilerSQL.php" );
-
-//SQL statements
-require_once( __ADO_PHP_DIR__  . "SQLStatement.php" );
+require_once __ADO_PHP_DIR__. 'autoload.php';
 
 require_once( __ADO_PHP_DIR__  . "DataSourceFactory.php" );
 require_once( __ADO_PHP_DIR__  . "package.deps.php" );
 
 require_once __ADO_PHP_DIR__ .  'DataSourceLogger.php';
 require_once __ADO_PHP_DIR__ .  'StmHelper.php';
+require_once(__ADO_PHP_DIR__ . '/core/Expressions/Expressions.php');
+require_once(__ADO_PHP_DIR__ . '/core/Database/DBObject.php');
+require_once(__ADO_PHP_DIR__ . '/core/Sql/SQLStatement.php');
+require_once(__ADO_PHP_DIR__ . '/core/Sql/SQLStatementSelect.php');
 

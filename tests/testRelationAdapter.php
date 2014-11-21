@@ -1,6 +1,5 @@
 <?php
 require_once(dirname( __FILE__ ) . "/../ADO.php" );
-require_once(dirname( __FILE__ ) . "/../DBRelationAdapter.php" );
 
 class A 
 {
@@ -67,7 +66,7 @@ class xtestRelations extends  PhpTest_TestSuite
 
 		$rel = new ABRel();
 
-		$str = $rel->getSelectQuery( 1);
+		$str = $rel->stmSelectChilds( 1);
 
 		TS_ASSERT_EQUALS(
 			"SELECT tableB.`b_id` FROM tableB,tableR WHERE "

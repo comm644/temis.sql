@@ -1,6 +1,5 @@
 <?php
 require_once( DIR_MODULES . "/ADO/ADO.php");
-require_once( DIR_MODULES . "/ADO/SQLOrder.php");
 require_once( dirname(__FILE__ ) . "/objects/schema.php" );
 
 

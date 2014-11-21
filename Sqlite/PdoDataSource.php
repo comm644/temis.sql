@@ -1,12 +1,8 @@
 <?php
-if( !defined( "__ADO_DATASOURCE_PHP_DIR__" ) ) define(  "__ADO_DATASOURCE_PHP_DIR__", dirname( __FILE__ ) . '/../' );
 
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DBDefaultResultContainer.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DataSourceLogger.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DBDataSource.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/Sqlite/SqliteDictionary.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/Sqlite/SqliteGenerator.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DSN.class.php");
+require_once( __DIR__ .  "/SqliteDictionary.php");
+require_once( __DIR__  . "/SqliteGenerator.php");
+require_once( __DIR__  . "/../DSN.class.php");
 
 define( "SQLITE_LOWALPHA",  "абвгдеёжзийклмнорпстуфхцчшщъьыэюя");
 define( "SQLITE_HIALPHA",   "АБВГДЕЁЖЗИЙКЛМНОРПСТУФХЦЧШЩЪЬЫЭЮЯ");
@@ -29,7 +25,9 @@ class PdoDataSource extends DBDataSource
 	private $link;
 	
 	private $preparedStm;
-	
+
+	private $transactionLevel = 0;
+
 	function __construct() {
 		$this->preparedStm= array();
 		
@@ -119,13 +117,13 @@ class PdoDataSource extends DBDataSource
 	{
 		return  DataSourceLogger::getInstance();
 	}
+
 	/** query "SELECT" to container
-	 @param string $query     SQL query
-	 @param DBResultcontainer |DBDefaultResultContainer|SQLStatementREsultContainer
-	 $resultcontainer  contaner stategy
-	 @return integer zero on success
-	 @see DBResultcontainer
-	 @see DBDefaultResultContainer
+	 * @param string $query     SQL query
+	 * @param $resultcontainer   DBResultcontainer |DBDefaultResultContainer|SQLStatementREsultContainer contaner stategy
+	 * @return integer zero on success
+	 * @see DBResultcontainer
+	 * @see DBDefaultResultContainer
 	 */
 	function querySelect( $query, &$resultContainer )
 	{
@@ -136,7 +134,7 @@ class PdoDataSource extends DBDataSource
 	private function _processSelectResult($resultStm, &$resultContainer)
 	{
 		if ( !$resultStm) {
-			Diagnostics::error("PDO query error: {$this->getEngineError()}\nQuery: $query ");
+			throw new DatabaseException("PDO query error: {$this->getEngineError()}\nQuery: $query ");
 		}
 		foreach( $resultStm->fetchAll(PDO::FETCH_NUM) as $row ) {
 			$obj = $resultContainer->fromSQL( $row );
@@ -180,8 +178,7 @@ class PdoDataSource extends DBDataSource
 	 *
 	 * @access protected.
 	 * @param SQLStatement|SQLStatementSelect|SQLStatementInsert|SQLStatementUpdate  $stm
-	 @param DBResultcontainer|DBDefaultResultContainer|SQLStatementResultContainer
-	 $resultcontainer  contaner stategy
+	 * @param DBResultcontainer|DBDefaultResultContainer|SQLStatementResultContainer $resultcontainer  contaner stategy
 	 */
 	protected function _executeStatement($stm, &$resultcontainer)
 	{
@@ -202,7 +199,7 @@ class PdoDataSource extends DBDataSource
 				$sql = $generator->generate($stm);
 				$pdoStm = $this->link->prepare($sql.";");
 				if (! $pdoStm) {
-					Diagnostics::error("Can't prepare statement: $sql\nError: " . $this->getEngineError());
+					throw new DatabaseException("Can't prepare statement: $sql\nError: " . $this->getEngineError());
 				}
 
 				$rc = $pdoStm->execute();
@@ -221,7 +218,7 @@ class PdoDataSource extends DBDataSource
 				$resultcontainer->add( $rowsAffected );
 				break;
 			default:
-				Diagnostics::error("Don't know how to execute  $class");
+				throw new DatabaseException("Don't know how to execute  $class");
 		}
 		return $rc;
 	}
@@ -235,8 +232,18 @@ class PdoDataSource extends DBDataSource
 		if ( $this->signShowQueries ) {
 			print_r( $query );
 		}
+		if ( $this->signDebugQueries) {
+			$this->getLogger()->debug( $query );
+		}
 		if (!array_key_exists($sql, $this->preparedStm)) {
-			$pdoStm =  $this->link->prepare($sql .";");	
+			try {
+				$pdoStm =  $this->link->prepare($sql .";");
+			}
+			catch( \PDOException $e ) {
+				$text =  $e->getMessage() . "\n\n sql: $sql" ;
+				log_error($text);
+				throw new DatabaseException( $text, 0, $e);
+			}
 			$this->preparedStm[$sql] = $pdoStm;
 		}
 		else 
@@ -245,7 +252,7 @@ class PdoDataSource extends DBDataSource
 		}
 		
 		if ( !$pdoStm ) {
-			Diagnostics::error("Can't prepare statement: $sql\nError: "
+			throw new DatabaseException("Can't prepare statement: $sql\nError: "
 				. $this->getEngineError()
 				. 'STM: ' . Diagnostics::dumpVar($stm));
 		}
@@ -254,7 +261,7 @@ class PdoDataSource extends DBDataSource
 			$rc = $pdoStm->bindValue( $param->name, $param->value, $this->_getPdoType( $param->type ) );
 
 			if ( $rc === FALSE ) {
-				Diagnostics::error("Can't bind value to statement: $sql\nError: " . $this->getEngineError());
+				throw new DatabaseException("Can't bind value to statement: $sql\nError: " . $this->getEngineError());
 			}
 		}
 		return $pdoStm;
@@ -299,13 +306,19 @@ class PdoDataSource extends DBDataSource
 	
 	function beginTransaction()
 	{
-		$this->link->beginTransaction();
+		if ( $this->transactionLevel == 0 ) {
+			$this->link->beginTransaction();
+		}
+		$this->transactionLevel++;
+
 	}
 	function commitTransaction()
 	{
-		$this->link->commit();
+		$this->transactionLevel--;
+		if ( $this->transactionLevel == 0 ) {
+			$this->link->commit();
+		}
 	}
 }
 
 
-?>

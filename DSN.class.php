@@ -20,7 +20,7 @@ if ( 0 ) {
  *   dbmsengine://localhost/?database=local/path/to/database.db&table=t_table   
  *      - open database.db, 
  *      - located in local/path/to/
- *      - select concretenet table 't_table'
+ *      - select concrete table 't_table'
  *      
  * 
  * The main idea in presentation DSN as URI , 
@@ -29,7 +29,7 @@ if ( 0 ) {
  *
  *  dbms://server/database/table/primary_key/pkvalue&connectparam=value
  *  
- * Notice: reserver query argument names:  'database', 'table'
+ * Notice: server query argument names:  'database', 'table'
  *  
  * Examples:
  * 

@@ -1,7 +1,13 @@
 <?php
 
-class DataSourceLoggerImpl extends Singleton
+class DataSourceLogger
 {
+	function __construct()
+	{
+		global $__DataSourceLogger;
+		$__DataSourceLogger = $this;
+	}
+
 	function debug( $msg )
 	{
 		
@@ -18,16 +24,16 @@ class DataSourceLoggerImpl extends Singleton
 	{
 		
 	}
-	static function init()
+	function getInstance()
 	{
-		$obj = new DataSourceLoggerImpl();
-		$obj->createFrontend("DataSourceLogger");
+		global $__DataSourceLogger;
+		return $__DataSourceLogger;
+	}
+	function setInstance($value)
+	{
+		global $__DataSourceLogger;
+		return $__DataSourceLogger = $value;
 	}
 }
-DataSourceLoggerImpl::init();
-
-if ( defined("ECLIPSE")) {
-	class DataSourceLogger extends DataSourceLoggerImpl{}; 
-}
-
+new DataSourceLogger();
 

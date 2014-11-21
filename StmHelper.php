@@ -52,4 +52,17 @@ class StmHelper
 		}
 		return $stm;
 	}
+
+	/**
+	 * Add count field to statement.
+	 *
+	 * @param SQLStatementSelect $stm
+	 * @return SQLStatementSelect
+	 */
+	static function stmAddCount(SQLStatementSelect $stm)
+	{
+		$stm->addColumn( SQLFunction::count( $stm->object->getPrimaryKeyTag(), "count" ) );
+		return $stm;
+	}
+
 }

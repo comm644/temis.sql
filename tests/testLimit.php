@@ -1,6 +1,5 @@
 <?php
 require_once( DIR_MODULES . "/ADO/ADO.php");
-require_once( DIR_MODULES . "/ADO/SQLLimit.php");
 
 class testLimit extends PhpTest_TestSuite
 {

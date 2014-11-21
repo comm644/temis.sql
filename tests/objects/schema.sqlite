@@ -61,4 +61,71 @@ CREATE TABLE t_another_link (
 
   )  ;
 
+      DROP TABLE IF EXISTS t_base; 
+         
+CREATE TABLE t_base (
+  base_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,baseData integer DEFAULT NULL
+
+  
+  
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_details; 
+         
+CREATE TABLE t_details (
+  details_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,base_id integer NOT NULL 
+  ,detailsData integer DEFAULT NULL
+
+  
+  
+  ,CONSTRAINT c_t_details_base_id FOREIGN KEY(base_id)
+    REFERENCES t_base(base_id) ON DELETE cascade
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_subdetails; 
+         
+CREATE TABLE t_subdetails (
+  subdetails_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,details_id integer NOT NULL 
+  ,subDetailsData integer DEFAULT NULL
+
+  
+  
+  ,CONSTRAINT c_t_subdetails_details_id FOREIGN KEY(details_id)
+    REFERENCES t_details(details_id) ON DELETE cascade
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_propertiesOne; 
+         
+CREATE TABLE t_propertiesOne (
+  propertiesOne_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,base_id integer NOT NULL 
+  ,propertiesOneData integer DEFAULT NULL
+
+  
+  
+  ,CONSTRAINT c_t_propertiesOne_base_id FOREIGN KEY(base_id)
+    REFERENCES t_base(base_id) ON DELETE cascade
+
+  )  ;
+
+      DROP TABLE IF EXISTS t_propertiesTwo; 
+         
+CREATE TABLE t_propertiesTwo (
+  propertiesTwo_id integer NOT NULL PRIMARY KEY AUTOINCREMENT 
+  ,base_id integer NOT NULL 
+  ,propertiesTwoData integer DEFAULT NULL
+
+  
+  
+  ,CONSTRAINT c_t_propertiesTwo_base_id FOREIGN KEY(base_id)
+    REFERENCES t_base(base_id) ON DELETE cascade
+
+  )  ;
+
   

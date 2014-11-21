@@ -10,9 +10,12 @@
 ******************************************************************************/
 require_once( dirname( __FILE__ ) . "/../../phptest/phptest.php" );
 
+date_default_timezone_set("Europe/Moscow");
+
 define( "DIR_MODULES", dirname( __FILE__ ) . "/../../" );
 define( "DIR_LOG", dirname( __FILE__ ) . "/" );
 require_once( DIR_MODULES . "/debug/debug.php");
+require_once( __DIR__ . '/../ADO.php');
 
 // test suites define
 

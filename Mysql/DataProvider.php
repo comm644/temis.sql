@@ -42,16 +42,6 @@ class DataProvider
 		$value = $ds->escapeString( $value );
 		return( "{$name} LIKE '%{$value}%'" ); 
 	}
-
-	function deleteObjects( $ds, $proto, $prikeys )
-	{
-		$keylist = implode( ",", $prikeys );
-		
-		$cond = $proto->primary_key() . " IN( {$keylist} )";
-		$dba = new DBObjectAdapter( $ds, $proto );
-		$dba->delete( $cond );
-	}
-
 }
 
 ?>

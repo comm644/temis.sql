@@ -29,7 +29,7 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 		
 		$ra = new DataDictionaryRelation();
 
-		$query = $ra->getSelectQuery( 5 );
+		$query = $ra->stmSelectChilds( 5 );
 		$expected = 
 			"SELECT `t_dictionary`.`dictionary_id` AS `dictionary_id`, `t_dictionary`.`text` AS `text` "
 			."FROM `t_dictionary`,`t_link` "
@@ -48,9 +48,9 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 		$ds->answer[] = $this->getSampleResult();
 
 		
-		$ra = new AnotherDataDictionaryRelation();
+		$ra = new AnotherDataDictionaryRelation($ds);
 
-		$query = $ra->getSelectQuery( 5 );
+		$query = $ra->stmSelectChilds( 5 );
 		$expected = 
 			"SELECT `t_dictionary`.`dictionary_id` AS `dictionary_id`, `t_dictionary`.`text` AS `text` "
 			."FROM `t_dictionary`,`t_another_link` "
@@ -67,9 +67,9 @@ class testDBRelationAdapter extends PhpTest_TestSuite
 		$ds->answer[] = new MockQueryAnswer( 0, 1 );
 
 		
-		$ra = new DataDictionaryRelation();
+		$ra = new DataDictionaryRelation($ds);
 
-		$query = $ra->add($ds, 5, 1 );
+		$query = $ra->add(5, 1 );
 		
 		TS_ASSERT_CONTAINS($this->ws($ds->query[0]), "count( `t_link`.`link_id` )" );
 		TS_ASSERT_CONTAINS($this->ws($ds->query[0]), "WHERE ((`t_link`.`data_id` = 5) AND (`t_link`.`dictionary_id` = 1))");

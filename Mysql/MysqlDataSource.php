@@ -10,11 +10,8 @@ if( !defined( "__ADO_DATASOURCE_PHP_DIR__" ) ) define(  "__ADO_DATASOURCE_PHP_DI
 
 define(  "__ADO_MYSQL_DIR__", dirname( __FILE__ ) . "/" );
 
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DSN.class.php");
+require_once( __ADO_PHP_DIR__ . "/DSN.class.php");
 
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DBDefaultResultContainer.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DataSourceLogger.php");
-require_once( __ADO_DATASOURCE_PHP_DIR__ . "/DBDataSource.php");
 
 require_once __ADO_MYSQL_DIR__ . 'MysqlDictionary.php';
 require_once __ADO_MYSQL_DIR__ . 'MysqlGenerator.php';
@@ -496,6 +493,26 @@ class MysqlDataSource extends DBDataSource
 	function isLinkAvailable()
 	{
 		return $this->link != null;
+	}
+
+	/**
+	 * Retrieve eroror message or code from DB engine (mysql/...)
+	 * @return string error message
+	 * @access protected
+	 */
+	function  getEngineError()
+	{
+		return mysql_error($this->link);
+	}
+
+	/**
+	 * Gets DB engine name.
+	 * @return string engine name (mysql, or sqlite..)
+	 * @access protected
+	 */
+	function getEngineName()
+	{
+		return 'mysql';
 	}
 };
 
